@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
+from .views import async_counter_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', views.async_view),
-    path('sync/', views.sync_view),
+    path('async-counter/', async_counter_view,  name='async_counter'),
 ]

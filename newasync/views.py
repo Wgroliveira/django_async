@@ -1,29 +1,14 @@
 import asyncio
-from time import sleep
-import httpx
-from django.http import HttpResponse
+from django.http import JsonResponse
+from datetime import datetime
 
-async def http_call_async():
-    for num in range(1, 6):
-        await asyncio.sleep(1)
-        print(num)
-    async with httpx.AsyncClient() as client:
-        r = await client.get("https://httpbin.org")
-        print(r)
-
-def http_call_async():
-    for num in range(1, 6):
-        sleep(1)
-        print(num)
-    r = httpx.get("https://httbin.org")    
-    print(r)
-
-
-async def async_view(request):
-    loop = asyncio.get_event_loop()
-    loop.create_task(http_call_async())
-    return HttpResponse('Non-blocking HTTP request')
-
-def sync_view(request):
-    http_call_async()
-    return HttpResponse("Blocking HTTP request")
+# View assíncrona
+async def async_counter_view(request):
+    start_time = datetime.now()  # Marca o início do tempo
+    await asyncio.sleep(5)  # Aguarda 5 segundos
+    end_time = datetime.now()  # Marca o fim do tempo
+    elapsed_time = (end_time - start_time).total_seconds()  # Calcula o tempo decorrido
+    return JsonResponse({
+        'message': 'Contagem concluída!',
+        'elapsed_time': f'{elapsed_time} segundos'
+    })
