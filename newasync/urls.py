@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import async_random_api_view
+from .views import async_counter_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('async-api/', async_random_api_view, name='async_random_api'),
+    path('async-counter/', async_counter_view,  name='async_counter'),
 ]
